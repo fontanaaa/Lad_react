@@ -8,7 +8,7 @@ const Product = () => {
         price: "1500$",
         discount: "5",
         rating: "4.9",
-        isFavorite: true,
+        isFavorite: false,
     };
     return (
         <div className={classes.product}>
@@ -26,9 +26,7 @@ const Product = () => {
                     src="/images/fav.png"
                     alt="favorite"
                 />
-            ) : (
-                ""
-            )}
+            ) : null}
         </div>
     );
 };

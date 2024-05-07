@@ -1,0 +1,23 @@
+$black: #000;
+
+.product {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__span {
+        font-size: 36px;
+    }
+
+    &__img {
+        height: 800px;
+        width: 1200px;
+        border-radius: 10%;
+        box-shadow: 0 0 5px $black;
+    }
+
+    &__img_f {
+        height: 100px;
+        width: 100px;
+    }
+}

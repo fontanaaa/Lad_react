@@ -1,0 +1,18 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.product__span {
+  font-size: 36px;
+}
+.product__img {
+  height: 800px;
+  width: 1200px;
+  border-radius: 10%;
+  box-shadow: 0 0 5px #000;
+}
+.product__img_f {
+  height: 100px;
+  width: 100px;
+}/*# sourceMappingURL=Product.module.css.map */

@@ -1,0 +1,7 @@
+.profile {
+  display: flex;
+}
+.profile__img {
+  border-radius: 50%;
+  box-shadow: 0 0 5px #000;
+}/*# sourceMappingURL=Profile.module.css.map */

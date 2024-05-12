@@ -1,32 +1,40 @@
+import { FC } from "react";
 import classes from "./Product.module.scss";
+import { IProduct } from "../../types/products";
 
-const Product = () => {
-    const product = {
-        id: 1,
-        name: "Наручные часы мужские SEIKO Prospex SPB381",
-        imageUrl: "/images/seiko.jpg",
-        price: "1500$",
-        discount: "5",
-        rating: "4.9",
-        isFavorite: false,
-    };
+interface ProductProps {
+    product: IProduct;
+    onAddCart: () => void;
+    onToggleFavorite: () => void;
+}
+
+const Product: FC<ProductProps> = ({
+    product,
+    onAddCart,
+    onToggleFavorite,
+}) => {
     return (
         <div className={classes.product}>
-            <span className={classes.product__span}>{product.name}</span>
             <img
                 src={product.imageUrl}
                 className={classes.product__img}
-                alt="seiko"
+                alt={product.name}
             />
-            <span className={classes.product__span}>{product.price}</span>
-            <span className={classes.product__span}>{product.rating}</span>
-            {product.isFavorite ? (
-                <img
-                    className={classes.product__img_f}
-                    src="/images/fav.png"
-                    alt="favorite"
-                />
-            ) : null}
+            <div className={classes.product__span}>{product.name}</div>
+            <div className={classes.product__span}>{product.price}</div>
+            <div className={classes.product__span}>{product.rating}</div>
+            <div>
+                <button onClick={onToggleFavorite}>
+                    {product.isFavorite ? (
+                        <img
+                            className={classes.product__img_f}
+                            src='/images/fav.png'
+                            alt='favorite'
+                        />
+                    ) : null}
+                </button>
+            </div>
+            <button onClick={onAddCart}>Buy</button>
         </div>
     );
 };

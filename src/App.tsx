@@ -1,4 +1,3 @@
-import MyButton from "./components/MyButton/MyButton";
 import ProductCatalog from "./components/ProductCatalog/ProductCatalog";
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
     return (
         <>
             <ProductCatalog products={products} />
-            <MyButton />
         </>
     );
 }

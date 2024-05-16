@@ -1,6 +1,7 @@
 import { FC } from "react";
 import classes from "./Product.module.scss";
 import { IProduct } from "../../types/products";
+import MyButton from "../MyButton/MyButton";
 
 interface ProductProps {
     product: IProduct;
@@ -24,7 +25,10 @@ const Product: FC<ProductProps> = ({
             <div className={classes.product__span}>{product.price}</div>
             <div className={classes.product__span}>{product.rating}</div>
             <div>
-                <button onClick={onToggleFavorite}>
+                <MyButton
+                    onClick={onToggleFavorite}
+                    className={classes.favoriteButton}
+                >
                     {product.isFavorite ? (
                         <img
                             className={classes.product__img_f}
@@ -32,9 +36,11 @@ const Product: FC<ProductProps> = ({
                             alt='favorite'
                         />
                     ) : null}
-                </button>
+                </MyButton>
             </div>
-            <button onClick={onAddCart}>Buy</button>
+            <MyButton onClick={onAddCart} className={classes.addToCartButton}>
+                Buy
+            </MyButton>
         </div>
     );
 };

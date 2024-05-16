@@ -1,10 +1,25 @@
-const MyButton = () => {
-    const handleClick = () => {
-        alert("The button is pressed");
-    };
-    return <button onClick={handleClick}>Button</button>;
-};
+import { CSSProperties, FC, ReactNode } from "react";
 
-// TODO:: Сделать чилдрен и тайп
+interface ButtonProps {
+    onClick?: () => void;
+    children: ReactNode;
+    className?: string;
+    style?: CSSProperties;
+}
+
+const MyButton: FC<ButtonProps> = ({ onClick, children, className, style }) => {
+    const handleClick = () => {
+        if (onClick) {
+            onClick();
+        } else {
+            alert("The button is pressed");
+        }
+    };
+    return (
+        <button onClick={handleClick} className={className} style={style}>
+            {children}
+        </button>
+    );
+};
 
 export default MyButton;

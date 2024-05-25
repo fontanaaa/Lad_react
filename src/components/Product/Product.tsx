@@ -1,19 +1,45 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classes from "./Product.module.scss";
-import { IProduct } from "../../types/products";
+import { ProductItem } from "../../types/products";
 import MyButton from "../MyButton/MyButton";
+import ChangeCount from "../ChangeCount/ChangeCount";
+import { CartType } from "../../types/cart";
 
 interface ProductProps {
-    product: IProduct;
-    onAddCart: () => void;
+    product: ProductItem;
+    onAddCart?: () => void;
     onToggleFavorite: () => void;
+    setCart: React.Dispatch<React.SetStateAction<CartType>>;
 }
 
 const Product: FC<ProductProps> = ({
     product,
     onAddCart,
     onToggleFavorite,
+    setCart,
 }) => {
+    const [count, setCount] = useState(0);
+
+    const handleIncrement = () => {
+        const newValue = count + 1;
+        setCount(newValue);
+
+        setCart((prevState) => {
+            return {
+                ...prevState,
+                items: [...prevState.items, { ...product, count: newValue }],
+            };
+        });
+    };
+
+    const handleDecrement = () => {
+        setCount((value) => value - 1);
+    };
+
+    const discount = product.discount && (
+        <div className={classes.product__span}>{product.discount.value}</div>
+    );
+
     return (
         <div className={classes.product}>
             <img
@@ -23,6 +49,7 @@ const Product: FC<ProductProps> = ({
             />
             <div className={classes.product__span}>{product.name}</div>
             <div className={classes.product__span}>{product.price}</div>
+            {discount}
             <div className={classes.product__span}>{product.rating}</div>
             <div>
                 <MyButton
@@ -36,11 +63,22 @@ const Product: FC<ProductProps> = ({
                             alt='favorite'
                         />
                     ) : null}
+                    Add to favorites
                 </MyButton>
             </div>
-            <MyButton onClick={onAddCart} className={classes.addToCartButton}>
+            <MyButton
+                onClick={handleIncrement}
+                className={classes.addToCartButton}
+            >
                 Buy
             </MyButton>
+            {count > 0 && (
+                <ChangeCount
+                    count={count}
+                    onDecrement={handleDecrement}
+                    onIncrement={handleIncrement}
+                />
+            )}
         </div>
     );
 };

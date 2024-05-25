@@ -1,16 +1,16 @@
 import { FC } from "react";
-import { IProduct } from "../../types/products";
+import { ProductItem } from "../../types/products";
 import Product from "../Product/Product";
 import Row from "../Row/Row";
+import { CartType } from "../../types/cart";
 
 interface ProductCatalogProps {
-    products: IProduct[];
+    products: ProductItem[];
+    setCart: React.Dispatch<React.SetStateAction<CartType>>;
 }
 
-const ProductCatalog: FC<ProductCatalogProps> = ({ products }) => {
-    const handleAddCart = () => {
-        alert("Added to basket");
-    };
+const ProductCatalog: FC<ProductCatalogProps> = ({ products, setCart }) => {
+    const handleAddCart = () => {};
     const handleToggleFavorite = () => {
         alert("Favorites have been changed");
     };
@@ -20,6 +20,7 @@ const ProductCatalog: FC<ProductCatalogProps> = ({ products }) => {
                 <Product
                     product={product}
                     onAddCart={handleAddCart}
+                    setCart={setCart}
                     onToggleFavorite={handleToggleFavorite}
                 />
             ))}

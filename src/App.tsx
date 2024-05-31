@@ -1,8 +1,8 @@
-import { useState } from "react";
 import ProductCatalog from "./components/ProductCatalog/ProductCatalog";
 import { ProductItem } from "./types/products";
 import { CartType } from "./types/cart";
 import Cart from "./components/Cart/Cart";
+import { useImmer } from "use-immer";
 
 const products: ProductItem[] = [
     {
@@ -36,14 +36,14 @@ const products: ProductItem[] = [
 ];
 
 function App() {
-    const [cart, setCart] = useState<CartType>({
+    const [cart, updateCart] = useImmer<CartType>({
         items: [],
         totalPrice: 0,
     });
 
     return (
         <>
-            <ProductCatalog products={products} setCart={setCart} />
+            <ProductCatalog products={products} updateCart={updateCart} />
             <hr />
             <Cart cart={cart} />
         </>

@@ -4,19 +4,20 @@ import { ProductItem } from "../../types/products";
 import MyButton from "../MyButton/MyButton";
 import ChangeCount from "../ChangeCount/ChangeCount";
 import { CartType } from "../../types/cart";
+import { Updater } from "use-immer";
 
 interface ProductProps {
     product: ProductItem;
     onAddCart?: () => void;
     onToggleFavorite: () => void;
-    setCart: React.Dispatch<React.SetStateAction<CartType>>;
+    updateCart: Updater<CartType>;
 }
 
 const Product: FC<ProductProps> = ({
     product,
     onAddCart,
     onToggleFavorite,
-    setCart,
+    updateCart,
 }) => {
     const [count, setCount] = useState(0);
 
@@ -24,16 +25,29 @@ const Product: FC<ProductProps> = ({
         const newValue = count + 1;
         setCount(newValue);
 
-        setCart((prevState) => {
-            return {
-                ...prevState,
-                items: [...prevState.items, { ...product, count: newValue }],
-            };
+        updateCart((draft) => {
+            const findProduct = draft.items.find(
+                (item) => item.id === product.id
+            );
+            if (findProduct) {
+                findProduct.count += 1;
+            } else {
+                draft.items.push({ ...product, count: 1 });
+            }
         });
     };
 
     const handleDecrement = () => {
         setCount((value) => value - 1);
+
+        updateCart((draft) => {
+            const findProduct = draft.items.find(
+                (item) => item.id === product.id
+            );
+            if (findProduct) {
+                findProduct.count -= 1;
+            }
+        });
     };
 
     const discount = product.discount && (

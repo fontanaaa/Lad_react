@@ -14,7 +14,11 @@ const Cart: FC<CartProps> = (props) => {
             <h3>Cart</h3>
             <ul>
                 {items.length > 0 ? (
-                    items.map((product) => <li>{product.name}</li>)
+                    items.map((product) => (
+                        <li>
+                            {product.name} - {product.count}
+                        </li>
+                    ))
                 ) : (
                     <p>Cart is empty</p>
                 )}

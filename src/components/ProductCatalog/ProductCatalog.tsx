@@ -3,13 +3,14 @@ import { ProductItem } from "../../types/products";
 import Product from "../Product/Product";
 import Row from "../Row/Row";
 import { CartType } from "../../types/cart";
+import { Updater } from "use-immer";
 
 interface ProductCatalogProps {
     products: ProductItem[];
-    setCart: React.Dispatch<React.SetStateAction<CartType>>;
+    updateCart: Updater<CartType>;
 }
 
-const ProductCatalog: FC<ProductCatalogProps> = ({ products, setCart }) => {
+const ProductCatalog: FC<ProductCatalogProps> = ({ products, updateCart }) => {
     const handleAddCart = () => {};
     const handleToggleFavorite = () => {
         alert("Favorites have been changed");
@@ -20,7 +21,7 @@ const ProductCatalog: FC<ProductCatalogProps> = ({ products, setCart }) => {
                 <Product
                     product={product}
                     onAddCart={handleAddCart}
-                    setCart={setCart}
+                    updateCart={updateCart}
                     onToggleFavorite={handleToggleFavorite}
                 />
             ))}

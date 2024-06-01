@@ -1,9 +1,7 @@
 import { FC } from "react";
-import { ProductItem } from "../../types/products";
-import Product from "../Product/Product";
-import Row from "../Row/Row";
-import { CartType } from "../../types/cart";
 import { Updater } from "use-immer";
+import { ProductItem, CartType } from "@/types";
+import { Product, Row } from "@/components";
 
 interface ProductCatalogProps {
     products: ProductItem[];

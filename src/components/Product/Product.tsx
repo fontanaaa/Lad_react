@@ -1,10 +1,11 @@
-import { FC, useState } from "react";
-import classes from "./Product.module.scss";
-import { ProductItem } from "../../types/products";
-import MyButton from "../MyButton/MyButton";
-import ChangeCount from "../ChangeCount/ChangeCount";
-import { CartType } from "../../types/cart";
+import { FC, useContext, useState } from "react";
 import { Updater } from "use-immer";
+import classes from "./Product.module.scss";
+import { ProductItem, CartType } from "@/types";
+import { ChangeCount, MyButton } from "@/components";
+import { CounterContext } from "@/context";
+import { increment } from "@/context/Counter";
+import { ThemeContext } from "@/context/ChooseTheme/ThemeProvider";
 
 interface ProductProps {
     product: ProductItem;
@@ -15,11 +16,12 @@ interface ProductProps {
 
 const Product: FC<ProductProps> = ({
     product,
-    onAddCart,
     onToggleFavorite,
     updateCart,
 }) => {
     const [count, setCount] = useState(0);
+    const { state, dispatch } = useContext(CounterContext);
+    const { theme } = useContext(ThemeContext);
 
     const handleIncrement = () => {
         const newValue = count + 1;
@@ -56,6 +58,7 @@ const Product: FC<ProductProps> = ({
 
     return (
         <div className={classes.product}>
+            <p>Сейчас используется:{theme}</p>
             <img
                 src={product.imageUrl}
                 className={classes.product__img}
@@ -93,6 +96,14 @@ const Product: FC<ProductProps> = ({
                     onIncrement={handleIncrement}
                 />
             )}
+            <h1>{state.count}</h1>
+            <button
+                onClick={() => {
+                    dispatch(increment(5));
+                }}
+            >
+                +5
+            </button>
         </div>
     );
 };

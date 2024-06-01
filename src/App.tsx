@@ -1,8 +1,8 @@
-import ProductCatalog from "./components/ProductCatalog/ProductCatalog";
-import { ProductItem } from "./types/products";
-import { CartType } from "./types/cart";
-import Cart from "./components/Cart/Cart";
 import { useImmer } from "use-immer";
+import { ProductCatalog, Cart } from "@/components";
+import { ProductItem, CartType } from "@/types";
+import TestComponent from "./components/TestComponent/TestComponent";
+import ThemeChanger from "./components/ThemeChanger/ThemeChanger";
 
 const products: ProductItem[] = [
     {
@@ -43,6 +43,8 @@ function App() {
 
     return (
         <>
+            <ThemeChanger />
+            <TestComponent />
             <ProductCatalog products={products} updateCart={updateCart} />
             <hr />
             <Cart cart={cart} />
